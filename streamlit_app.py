@@ -49,7 +49,7 @@ def main():
         mostrar_analise(df_alunos)
     elif pagina == "Predição de Risco Acadêmico":
         mostrar_predicao(df_modelo, modelo_svm)
-    elif page == "Análise com Power BI":
+    elif pagina  == "Análise com Power BI":
         mostrar_powerbi()
     elif pagina == "Conclusão":
         mostrar_conclusao()
