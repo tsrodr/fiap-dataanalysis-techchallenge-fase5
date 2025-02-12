@@ -37,6 +37,7 @@ def main():
         "Início",
         "Análise de Desempenho",
         "Predição de Risco Acadêmico",
+        "Análise com Power BI",
         "Conclusão"
     ]
     
@@ -48,8 +49,11 @@ def main():
         mostrar_analise(df_alunos)
     elif pagina == "Predição de Risco Acadêmico":
         mostrar_predicao(df_modelo, modelo_svm)
+    elif page == "Análise com Power BI":
+        mostrar_powerbi()
     elif pagina == "Conclusão":
         mostrar_conclusao()
+
 
 def mostrar_inicio():
     st.title("🏫 Análise do Desempenho Acadêmico")
@@ -223,6 +227,20 @@ def mostrar_predicao(df_modelo, modelo):
             st.error("⚠️ O aluno tem risco de baixa performance! Recomenda-se uma ação imediata para suporte e acompanhamento.")
         else:
             st.success("✅ O aluno apresenta alta performance! O modelo sugere continuidade no suporte educacional.")
+
+def mostrar_powerbi():
+    st.title("Dashboard Integrado do Power BI")
+
+    # URL do relatório do Power BI (substitua pela URL do seu relatório embed)
+    power_bi_url = "https://app.powerbi.com/view?r=eyJrIjoiYTEwZmNlMGYtZWNiOS00N2EyLWFlNzQtZWFjOWNkMGJhMjg2IiwidCI6IjExZGJiZmUyLTg5YjgtNDU0OS1iZTEwLWNlYzM2NGU1OTU1MSIsImMiOjR9"
+
+    # Embeber o relatório usando um iframe
+    st.components.v1.html(
+        f"""
+        <iframe width="100%" height="800" src="{power_bi_url}" frameborder="0" allowFullScreen="true"></iframe>
+        """,
+        height=900,
+    )
 
 def mostrar_conclusao():
     st.title("📌 Conclusão Final do Projeto")
