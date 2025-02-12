@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import matplotlib.pyplot as plt
 import plotly.express as px
+import seaborn as sns
 
 def previsao_performance(dados, modelo):
     return modelo.predict(dados)[0]
@@ -52,23 +54,72 @@ def main():
 def mostrar_inicio():
     st.title("🏫 Análise do Desempenho Acadêmico")
     st.markdown("""
-    Este projeto faz parte do **Datathon**, uma iniciativa voltada para a análise e previsão do desempenho acadêmico dos alunos da ONG **Passos Mágicos**. A ONG atua transformando a educação de crianças e jovens em situação de vulnerabilidade social, fornecendo suporte pedagógico e emocional para melhorar suas oportunidades futuras.
+    ## ONG (Passos Mágicos)
     
-    O objetivo deste estudo é fornecer **insights estratégicos** sobre o impacto da ONG na vida dos estudantes, utilizando técnicas de **análise de dados e machine learning**. Com base em dados históricos de 2020 a 2022, este painel permite:
+    A **Associação Passos Mágicos** tem mais de **32 anos de atuação**, dedicando-se a transformar a vida de crianças e jovens de baixa renda, proporcionando-lhes **melhores oportunidades educacionais e sociais**. Fundada por **Michelle Flues e Dimetri Ivanoff**, a iniciativa começou em **1992**, atuando dentro de orfanatos no município de **Embu-Guaçu**. 
+    
+    Em **2016**, após anos de experiência e aprendizado, a Passos Mágicos expandiu sua atuação, passando a atender um número ainda maior de estudantes, combinando **educação de qualidade, suporte psicológico e psicopedagógico**, ampliação da visão de mundo e desenvolvimento do protagonismo dos alunos. 
+    
+    Para mais informações, visite o site: [Passos Mágicos](https://passosmagicos.org.br/)           
+
+    ## Objetivo do Projeto
+    
+    Este projeto faz parte do **Datathon**, uma iniciativa voltada para a análise e previsão do desempenho acadêmico dos alunos atendidos pela ONG **Passos Mágicos**. O foco do estudo é gerar **insights estratégicos** sobre o impacto da instituição na vida dos estudantes, utilizando técnicas de **análise de dados e machine learning**. Com base em dados históricos de **2020 a 2022**, este painel permite:
     
     - **Explorar padrões de desempenho** ao longo dos anos.
     - **Avaliar o impacto de diferentes indicadores educacionais**.
     - **Realizar previsões de risco acadêmico**, identificando alunos que precisam de maior suporte.
     
-    Utilize o menu lateral para navegar entre as seções e obter informações detalhadas.
+    Utilize o **menu lateral** para navegar entre as seções e explorar os dados em maior profundidade.
     """)
 
 def mostrar_analise(df):
     st.header("📊 Análise Exploratório do Desempenho Acadêmico")
     
-    tab1, tab2 = st.tabs(['Visão Geral', 'Indicadores e Gráficos'])
-    
+    tab1, tab2, tab3 = st.tabs(['Gráficos','Visão Geral', 'Indicadores e Comparações'])
+
     with tab1:
+        st.markdown("""
+        ## Evolução dos Indicadores Educacionais
+        
+        A análise dos indicadores educacionais ao longo dos anos permite compreender a evolução dos alunos atendidos pela Passos Mágicos. O gráfico abaixo mostra a tendência dos principais indicadores de 2020 a 2022.
+        
+        ### Contexto Histórico
+        - **2020**: Primeiro ano de análise, antes da pandemia, refletindo um cenário de ensino tradicional.
+        - **2021**: Impacto da pandemia e transição para o ensino remoto, resultando em quedas nos indicadores de engajamento e aprendizado.
+        - **2022**: Recuperação gradual com a retomada das aulas presenciais e reforço das estratégias pedagógicas.
+        
+        O gráfico a seguir destaca essas variações:
+        """)
+        
+        fig, axes = plt.subplots(2, 3, figsize=(18, 10))  # Ajustado para remover o último gráfico em branco
+        fig.suptitle("Evolução dos Indicadores Educacionais por Ano", fontsize=16)
+        
+        indicadores = ['inde', 'ida', 'ieg', 'ips', 'ipp', 'iaa']  # Removido 'ipv' para evitar gráfico extra
+        titulos = [
+            'INDE (Desenvolvimento Educacional)', 'IDA (Indicador de Aprendizagem)',
+            'IEG (Engajamento)', 'IPS (Psicossocial)', 'IPP (Psicopedagógico)',
+            'IAA (Autoavaliação)'
+        ]
+        cores = ['blue', 'green', 'orange', 'purple', 'red', 'cyan']
+        
+        for i, ax in enumerate(axes.flatten()):
+            df_grouped = df.groupby('ano', as_index=False)[indicadores[i]].mean()
+            ax.plot(df_grouped['ano'], df_grouped[indicadores[i]], marker='o', color=cores[i])
+            ax.set_title(titulos[i])
+            ax.set_xlabel('Ano')
+            ax.set_ylabel('Média')
+            ax.grid(True)
+            ax.set_xticks(df_grouped['ano'])  # Corrigindo eixo X quebrado
+        
+        plt.tight_layout(rect=[0, 0, 1, 0.95])
+        st.pyplot(fig)
+        
+        st.markdown("""
+        Os resultados demonstram que o impacto da pandemia em **2021** foi significativo, especialmente nos indicadores de engajamento (**IEG**) e desempenho acadêmico (**IDA**). Em **2022**, observa-se uma retomada na maioria dos indicadores, indicando que a adaptação ao ensino híbrido e o suporte pedagógico oferecido foram essenciais para a recuperação dos alunos.
+        """)
+    
+    with tab2:
         st.markdown("""
         A **análise exploratória** tem como propósito entender os padrões educacionais, permitindo visualizar como diferentes fatores impactam o aprendizado dos alunos.
         
@@ -95,44 +146,44 @@ def mostrar_analise(df):
         
         st.markdown("""Os dados indicam que alunos com **maior engajamento** e **melhor suporte psicopedagógico** tendem a apresentar **melhores resultados acadêmicos**. Isso reforça a necessidade de políticas educacionais que promovam um ensino mais inclusivo e personalizado.""")
 
-        with tab2:
-            lano = {'Todos': 'Todos','2020': 2020, '2021': 2021, '2022':2022}
-            lpedras = ['Topázio', 'Ametista', 'Ágata', 'Quartzo']
-            cbano = st.selectbox('Selecione o ano:', list(lano.keys()), key = "cbano")
+    with tab3:
+        lano = {'Todos': 'Todos','2020': 2020, '2021': 2021, '2022':2022}
+        lpedras = ['Topázio', 'Ametista', 'Ágata', 'Quartzo']
+        cbano = st.selectbox('Selecione o ano:', list(lano.keys()), key = "cbano")
 
-            df_ano = df    
-            if(cbano != 'Todos'):
-                df_ano = df[df['ano'] == lano[cbano]]
-                if(lano[cbano] > 2020):
-                    df_ano_anterior = df[df['ano'] == lano[cbano]-1]
+        df_ano = df    
+        if(cbano != 'Todos'):
+            df_ano = df[df['ano'] == lano[cbano]]
+            if(lano[cbano] > 2020):
+                df_ano_anterior = df[df['ano'] == lano[cbano]-1]
 
-            num_colunas_pedras = len(lpedras)
-            colunas_2 = st.columns(num_colunas_pedras, border=True)
-            for i, dados in enumerate(lpedras):
-                coluna_atual = colunas_2[i % num_colunas_pedras]
-                with coluna_atual:
-                    if(cbano != 'Todos' and lano[cbano] > 2020):
-                        st.metric(dados, label_visibility='visible', help='Comparativo em relação ao ano anterior', value=np.sum(df_ano['pedra'] == dados), delta= int(np.sum(df_ano['pedra'] == dados) - np.sum(df_ano_anterior['pedra'] == dados)))
-                    else:
-                        st.metric(dados, np.sum(df_ano['pedra'] == dados), delta=None)            
+        num_colunas_pedras = len(lpedras)
+        colunas_2 = st.columns(num_colunas_pedras, border=True)
+        for i, dados in enumerate(lpedras):
+            coluna_atual = colunas_2[i % num_colunas_pedras]
+            with coluna_atual:
+                if(cbano != 'Todos' and lano[cbano] > 2020):
+                    st.metric(dados, label_visibility='visible', help='Comparativo em relação ao ano anterior', value=np.sum(df_ano['pedra'] == dados), delta= int(np.sum(df_ano['pedra'] == dados) - np.sum(df_ano_anterior['pedra'] == dados)))
+                else:
+                    st.metric(dados, np.sum(df_ano['pedra'] == dados), delta=None)            
 
-            num_colunas = len(lIndicadores)
-            colunas_1 = st.columns(num_colunas, border=True)
+        num_colunas = len(lIndicadores)
+        colunas_1 = st.columns(num_colunas, border=True)
 
-            for i, dados in enumerate(lIndicadores):
-                coluna_atual = colunas_1[i % num_colunas]
-                with coluna_atual:
-                    st.subheader(dados, help='Comparativo em relação ao ano anterior')
-                    if(cbano != 'Todos' and lano[cbano] > 2020):
-                        st.metric('Média:', df_ano[dados].mean().round(2), border=False, delta=round(df_ano[dados].mean().round(2) - df_ano_anterior[dados].mean().round(2),2))
-                        st.metric('Mediana:', df_ano[dados].median().round(2), border=False, delta=round(df_ano[dados].median().round(2) - df_ano_anterior[dados].median().round(2),2))
-                        st.metric('Min:', df_ano[dados].min().round(2), border=False, delta=round(df_ano[dados].min().round(2) - df_ano_anterior[dados].min().round(2),2))
-                        st.metric('Max:', df_ano[dados].max().round(2), border=False, delta=round(df_ano[dados].max().round(2) - df_ano_anterior[dados].max().round(2), 2))
-                    else:
-                        st.metric('Média:', df_ano[dados].mean().round(2),border=False, delta=None, delta_color='off')
-                        st.metric('Mediana:', df_ano[dados].median().round(2),border=False, delta=None, delta_color='off')
-                        st.metric('Min:', df_ano[dados].min().round(2),border=False, delta=None, delta_color='off')
-                        st.metric('Max:', df_ano[dados].max().round(2),border=False, delta=None, delta_color='off')
+        for i, dados in enumerate(lIndicadores):
+            coluna_atual = colunas_1[i % num_colunas]
+            with coluna_atual:
+                st.subheader(dados, help='Comparativo em relação ao ano anterior')
+                if(cbano != 'Todos' and lano[cbano] > 2020):
+                    st.metric('Média:', df_ano[dados].mean().round(2), border=False, delta=round(df_ano[dados].mean().round(2) - df_ano_anterior[dados].mean().round(2),2))
+                    st.metric('Mediana:', df_ano[dados].median().round(2), border=False, delta=round(df_ano[dados].median().round(2) - df_ano_anterior[dados].median().round(2),2))
+                    st.metric('Min:', df_ano[dados].min().round(2), border=False, delta=round(df_ano[dados].min().round(2) - df_ano_anterior[dados].min().round(2),2))
+                    st.metric('Max:', df_ano[dados].max().round(2), border=False, delta=round(df_ano[dados].max().round(2) - df_ano_anterior[dados].max().round(2), 2))
+                else:
+                    st.metric('Média:', df_ano[dados].mean().round(2),border=False, delta=None, delta_color='off')
+                    st.metric('Mediana:', df_ano[dados].median().round(2),border=False, delta=None, delta_color='off')
+                    st.metric('Min:', df_ano[dados].min().round(2),border=False, delta=None, delta_color='off')
+                    st.metric('Max:', df_ano[dados].max().round(2),border=False, delta=None, delta_color='off')
 
 
 def mostrar_predicao(df_modelo, modelo):
@@ -162,7 +213,7 @@ def mostrar_predicao(df_modelo, modelo):
         ipv = st.number_input("IPV (Ponto de Virada)", 0, 10, 5)
     
     with col4:
-        ian = st.number_input("IAN (Autoavaliação)", 0, 10, 5)
+        ian = st.number_input("IAN (Adequação de Nível)", 0, 10, 5)
     
     if st.button("Prever Risco Acadêmico"):
         dados_entrada = pd.DataFrame([[iaa, ieg, ips, ida, ipp, ipv, ian]], columns=['iaa', 'ieg', 'ips', 'ida', 'ipp', 'ipv', 'ian'])
