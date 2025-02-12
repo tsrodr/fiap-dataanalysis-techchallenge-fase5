@@ -51,8 +51,10 @@ A apresentação dos insights e resultados do projeto foi feita utilizando **fer
 
 
 ## Acesso às Ferramentas
-- **Dashboard Interativo**: Disponível em Streamlit para visualização dinâmica.
-- **Dashboard Complementar**: Disponível em Power BI para análises complementares.
+1. **Dashboard Interativo**:
+   - Disponível em [Streamlit](https://fiap-dataanalysis-techchallenge-fase5-whbkrxfjy7xfhvappzq3bk2.streamlit.app).
+2. **Dashboard Complementar**:
+   - Disponível em [Power BI](https://app.powerbi.com/view?r=eyJrIjoiNGNlYjNjMzYtODNkNC00ZDk4LTkwYzItZGJiODZiMTAwNzVhIiwidCI6IjExZGJiZmUyLTg5YjgtNDU0OS1iZTEwLWNlYzM2NGU1OTU1MSIsImMiOjR9).
 
 ## Análise dos Indicadores Acadêmicos
 
