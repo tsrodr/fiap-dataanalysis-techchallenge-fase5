@@ -36,7 +36,7 @@ O projeto utilizou um **banco de dados relacional na nuvem** para armazenar e pr
   - O banco de dados escolhido foi o **PostgreSQL**, devido à sua robustez, escalabilidade e compatibilidade com análises avançadas.
   - Utilizado para armazenar e consultar informações sobre os alunos, permitindo análises aprofundadas.
 
-  - **Processamento de Dados**:
+- **Processamento de Dados**:
   - Apache Spark: Manipulação de grandes volumes de dados.
 
 ## **Visualização e Storytelling dos Dados**
