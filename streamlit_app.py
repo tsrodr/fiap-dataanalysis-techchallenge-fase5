@@ -225,11 +225,85 @@ def mostrar_predicao(df_modelo, modelo):
             st.success("✅ O aluno apresenta alta performance! O modelo sugere continuidade no suporte educacional.")
 
 def mostrar_conclusao():
-    st.title("📌 Conclusão")
+    st.title("📌 Conclusão Final do Projeto")
     st.markdown("""
-    O impacto da ONG **Passos Mágicos** na comunidade é evidente pelos avanços nos indicadores de desempenho acadêmico e engajamento. O modelo preditivo permite uma abordagem **proativa e personalizada**, garantindo que **nenhum aluno fique para trás**.
-    
-    A implementação de estratégias baseadas em dados fortalece a educação e permite um planejamento mais eficiente para o futuro.
+        O projeto de análise e previsão do desempenho acadêmico dos alunos da **Passos Mágicos** proporcionou uma visão detalhada sobre os fatores que influenciam a evolução educacional dos estudantes. Através da **análise exploratória de dados (EDA)**, da **modelagem preditiva** e da **criação de dashboards interativos**, foi possível mapear tendências, identificar desafios e propor soluções baseadas em dados.
+
+        ---
+
+        ## 🔍 Principais Descobertas  
+
+        ### 1️⃣ **Impacto do Engajamento no Desempenho**  
+        - O **Indicador de Engajamento (IEG)** apresentou forte correlação com o **Índice de Desenvolvimento Educacional (INDE)** e o **Ponto de Virada (IPV)**.  
+        - Isso demonstra que **alunos mais engajados tendem a apresentar melhor desempenho**, destacando a importância de **mentorias, atividades extracurriculares e acompanhamento personalizado**.
+
+        ### 2️⃣ **Influência do Ensino Remoto na Queda dos Indicadores**  
+        - Os dados de **2021** mostraram uma **queda significativa** no aprendizado devido à transição para o ensino remoto.  
+        - Em **2022**, observamos uma **recuperação gradual**, reforçando a importância do **retorno presencial e do suporte psicopedagógico** oferecido pela ONG.
+
+        ### 3️⃣ **Ponto de Virada como Indicador Crítico**  
+        - O **IPV (Ponto de Virada)** demonstrou ser um fator essencial na **trajetória educacional** dos alunos.  
+        - Monitorar e atuar de forma proativa nesses momentos pode evitar quedas no aprendizado e garantir melhores resultados.
+
+        ### 4️⃣ **Desafios do Bem-Estar Psicossocial**  
+        - O **IPS (Indicador Psicossocial)** teve correlação baixa com os outros indicadores, sugerindo que fatores emocionais e sociais podem não impactar diretamente as notas.  
+        - No entanto, um acompanhamento contínuo pode evitar problemas a longo prazo.
+
+        ### 5️⃣ **Modelagem Preditiva como Suporte para Tomada de Decisão**  
+        - O modelo de **Machine Learning**, utilizando **Random Forest, XGBoost e SVM**, permitiu identificar alunos em risco de queda no desempenho.  
+        - Esse modelo pode ser usado para antecipar dificuldades e agir preventivamente.
+
+        ---
+
+        ## 🚀 Recomendações e Próximos Passos  
+
+        ✅ **1. Fortalecer as Estratégias de Engajamento**  
+        - Criar **programas de mentoria** e incentivar a participação ativa dos alunos.  
+        - Expandir atividades extracurriculares que aumentem a conexão do aluno com o aprendizado.  
+
+        ✅ **2. Monitoramento Ativo dos Alunos com Maior Risco**  
+        - Implementar um **sistema de alerta** baseado nos modelos preditivos para identificar alunos com maior risco de queda de desempenho.  
+        - Aplicar intervenções personalizadas e acompanhamento pedagógico para cada caso.  
+
+        ✅ **3. Melhorar a Infraestrutura Digital e Métodos de Ensino Híbrido**  
+        - Garantir que os alunos tenham acesso a **tecnologia e suporte adequado** para manter a qualidade do aprendizado, mesmo em situações de ensino remoto ou híbrido.  
+        - Capacitar professores para atuar com metodologias ativas e inovadoras.  
+
+        ✅ **4. Fortalecer o Suporte Psicopedagógico**  
+        - Criar iniciativas para identificar alunos com dificuldades emocionais e oferecer **acompanhamento psicológico**.  
+        - Estabelecer parcerias para ampliar o suporte psicossocial dentro e fora da ONG.  
+
+        ✅ **5. Aprimorar a Modelagem Preditiva**  
+        - Testar novos modelos e aprimorar as previsões utilizando mais dados históricos.  
+        - Explorar algoritmos mais avançados, como **redes neurais e aprendizado profundo**, para refinar as análises.  
+
+        ✅ **6. Expansão do Dashboard e Storytelling dos Dados**  
+        - Criar dashboards mais interativos com integração direta ao banco de dados.  
+        - Incorporar análises preditivas diretamente no painel para facilitar a tomada de decisão.  
+
+        ---
+
+        ## ⚠️ Pontos de Atenção  
+
+        ⚠️ **Dados Incompletos e Qualidade da Informação**  
+        - Algumas bases de dados apresentaram **lacunas e valores ausentes**. É essencial estruturar um sistema de coleta mais eficiente para garantir dados completos e confiáveis.
+
+        ⚠️ **Risco de Interpretação Equivocada dos Indicadores**  
+        - Alguns alunos podem apresentar **notas altas, mas baixo engajamento**, o que pode mascarar problemas futuros. A análise deve ser sempre combinada com acompanhamento pedagógico.
+
+        ⚠️ **Necessidade de Adaptação Contínua**  
+        - O cenário educacional muda constantemente. Estratégias eficazes hoje podem não ser as mesmas no futuro, exigindo **monitoramento e ajustes frequentes nas políticas educacionais**.
+
+        ---
+
+        ## 🎯 Conclusão Final  
+
+        Este projeto demonstrou que **dados bem estruturados e análises avançadas podem transformar a educação**, permitindo intervenções mais precisas e impactantes. A **Passos Mágicos** já desempenha um papel essencial no desenvolvimento educacional dos alunos e, com a implementação das recomendações, pode potencializar ainda mais seus resultados.
+
+        O uso de **machine learning, análise preditiva e storytelling de dados** permitiu criar um sistema capaz de **identificar alunos em risco, otimizar estratégias pedagógicas e tomar decisões baseadas em evidências**. O próximo passo é expandir essa abordagem, garantindo que cada aluno receba o suporte necessário para alcançar seu máximo potencial. 🚀📚  
+
+        > **"Educação não transforma o mundo. Educação muda pessoas. Pessoas transformam o mundo."** – Paulo Freire  
+
     """)
 
 if __name__ == "__main__":
